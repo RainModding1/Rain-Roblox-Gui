@@ -1,0 +1,392 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local flying = false
+local noClipping = false
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
+local flySpeed = 50 -- Default fly speed
+local espEnabled = true -- Track if ESP is enabled
+local tracersEnabled = false -- Track if tracers are enabled
+local aimbotEnabled = false -- Track if aimbot is enabled
+
+-- Create a ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.5, 0, 0.5, 0)
+frame.Position = UDim2.new(0.25, 0, 0.25, 0)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.Parent = screenGui
+
+-- Create a TextLabel for Title
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0.1, 0) -- Title occupies the top 10% of the frame
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.Text = "Rain Gui"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.BackgroundTransparency = 1 -- Transparent background
+titleLabel.TextScaled = true -- Scale text to fit
+titleLabel.TextSize = 36 -- Set a large text size
+titleLabel.TextStrokeTransparency = 0.5 -- Optional: Add stroke for better visibility
+titleLabel.Parent = frame
+
+-- Create a TextLabel for instructions
+local instructionsLabel = Instance.new("TextLabel")
+instructionsLabel.Size = UDim2.new(1, 0, 0.2, 0)
+instructionsLabel.Position = UDim2.new(0, 0, 0.1, 0) -- Below the title
+instructionsLabel.Text = "Controls:\nW: Move Forward\nS: Move Backward\nA: Move Left\nD: Move Right\nSpace: Ascend\nLeft Control: Descend"
+instructionsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+instructionsLabel.BackgroundTransparency = 1 -- Transparent background
+instructionsLabel.TextScaled = true -- Scale text to fit
+instructionsLabel.Parent = frame
+
+-- Create a TextLabel for fly status
+local flyStatusLabel = Instance.new("TextLabel")
+flyStatusLabel.Size = UDim2.new(1, 0, 0.1, 0)
+flyStatusLabel.Position = UDim2.new(0, 0, 0.3, 0) -- Adjusted position
+flyStatusLabel.Text = "Fly Off"
+flyStatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyStatusLabel.BackgroundTransparency = 1
+flyStatusLabel.Parent = frame
+
+-- Create a TextLabel for NoClip status
+local noClipStatusLabel = Instance.new("TextLabel")
+noClipStatusLabel.Size = UDim2.new(1, 0, 0.1, 0)
+noClipStatusLabel.Position = UDim2.new(0, 0, 0.4, 0)
+noClipStatusLabel.Text = "NoClip Off"
+noClipStatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+noClipStatusLabel.BackgroundTransparency = 1
+noClipStatusLabel.Parent = frame
+
+-- Create a TextBox for fly speed input
+local speedInput = Instance.new("TextBox")
+speedInput.Size = UDim2.new(1, 0, 0.1, 0)
+speedInput.Position = UDim2.new(0, 0, 0.55, 0)
+speedInput.Text = tostring(flySpeed) -- Set default speed value
+speedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedInput.BackgroundColor3 = Color3.fromRGB(100, 100, 150)
+speedInput.PlaceholderText = "Enter Fly Speed"
+speedInput.TextScaled = true -- Scale text to fit
+speedInput.Parent = frame
+
+-- Create a TextButton for Toggle Fly
+local flyButton = Instance.new("TextButton")
+flyButton.Size = UDim2.new(1, 0, 0.1, 0)
+flyButton.Position = UDim2.new(0, 0, 0.65, 0)
+flyButton.Text = "Toggle Fly"
+flyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+flyButton.Parent = frame
+
+-- Create a TextButton for NoClip
+local noClipButton = Instance.new("TextButton")
+noClipButton.Size = UDim2.new(1, 0, 0.1, 0)
+noClipButton.Position = UDim2.new(0, 0, 0.75, 0)
+noClipButton.Text = "Toggle NoClip"
+noClipButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+noClipButton.BackgroundColor3 = Color3.fromRGB(150, 0, 150)
+noClipButton.Parent = frame
+
+-- Create a TextButton for Toggle ESP
+local espButton = Instance.new("TextButton")
+espButton.Size = UDim2.new(1, 0, 0.1, 0)
+espButton.Position = UDim2.new(0, 0, 0.85, 0)
+espButton.Text = "Toggle ESP"
+espButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+espButton.BackgroundColor3 = Color3.fromRGB(0, 100, 200)
+espButton.Parent = frame
+
+-- Create a TextButton for Toggle Tracers
+local tracersButton = Instance.new("TextButton")
+tracersButton.Size = UDim2.new(1, 0, 0.1, 0)
+tracersButton.Position = UDim2.new(0, 0, 0.95, 0)
+tracersButton.Text = "Toggle Tracers"
+tracersButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+tracersButton.BackgroundColor3 = Color3.fromRGB(200, 100, 0)
+tracersButton.Parent = frame
+
+-- Create a TextButton for Toggle Aimbot
+local aimbotButton = Instance.new("TextButton")
+aimbotButton.Size = UDim2.new(1, 0, 0.1, 0)
+aimbotButton.Position = UDim2.new(0, 0, 1.05, 0) -- Position below other buttons
+aimbotButton.Text = "Toggle Aimbot"
+aimbotButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+aimbotButton.BackgroundColor3 = Color3.fromRGB(150, 100, 200)
+aimbotButton.Parent = frame
+
+-- Create a TextButton for Minimize
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+minimizeButton.Position = UDim2.new(0.85, 0, 0, 0)
+minimizeButton.Text = "Min"
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(150, 150, 0)
+minimizeButton.Parent = frame
+
+-- Create a TextButton for Close
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+closeButton.Position = UDim2.new(0.95, 0, 0, 0)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+closeButton.Parent = frame
+
+-- Create a smaller TextButton for Unminimize Notification
+local unminimizeButton = Instance.new("TextButton")
+unminimizeButton.Size = UDim2.new(0.05, 0, 0.05, 0) -- Smaller size
+unminimizeButton.Position = UDim2.new(0.95, 0, 0.05, 0) -- Adjusted position to top right corner
+unminimizeButton.Text = "U"
+unminimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+unminimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+unminimizeButton.Visible = false -- Initially hidden
+unminimizeButton.Parent = screenGui
+
+-- ESP Functionality
+local function createESP(player)
+    local esp = Instance.new("Highlight") -- Create a highlight to serve as ESP
+    esp.Parent = player.Character
+    esp.FillColor = Color3.new(1, 1, 1) -- Change this color to white or any color of your choice
+    esp.OutlineColor = Color3.new(1, 1, 1) -- Outline color
+    esp.OutlineTransparency = 0.5 -- Slightly transparent outline
+    esp.FillTransparency = 0.5 -- Slightly transparent fill
+    return esp
+end
+
+-- Create ESP for all players in the game
+for _, p in pairs(Players:GetPlayers()) do
+    if p ~= player then
+        createESP(p)
+    end
+end
+
+-- Function to update ESP when a new player joins
+Players.PlayerAdded:Connect(function(newPlayer)
+    newPlayer.CharacterAdded:Connect(function()
+        createESP(newPlayer)
+    end)
+end)
+
+-- Function to toggle ESP visibility
+local function toggleESP()
+    espEnabled = not espEnabled
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Character then
+            local espHighlight = p.Character:FindFirstChildOfClass("Highlight")
+            if espHighlight then
+                espHighlight.Enabled = espEnabled -- Enable or disable the highlight based on toggle
+            end
+        end
+    end
+end
+
+-- Function to toggle tracers visibility
+local function toggleTracers()
+    tracersEnabled = not tracersEnabled
+end
+
+-- Function to draw tracers for players
+RunService.RenderStepped:Connect(function()
+    if tracersEnabled then
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                local rootPartPosition = p.Character.HumanoidRootPart.Position
+                local playerPosition = character.HumanoidRootPart.Position
+
+                local tracerLine = Instance.new("LineHandleAdornment")
+                tracerLine.Color3 = Color3.fromRGB(255, 255, 255) -- Set tracer color to white
+                tracerLine.Length = (rootPartPosition - playerPosition).Magnitude
+                tracerLine.Adornee = workspace.Terrain -- Line will be drawn in the workspace
+                tracerLine.CFrame = CFrame.new(playerPosition:Lerp(rootPartPosition, 0.5), rootPartPosition) -- Center of line at midpoint
+                tracerLine.AlwaysOnTop = true
+                tracerLine.ZIndex = 10 -- Make sure it appears on top
+                tracerLine.Parent = workspace
+
+                -- Remove the tracer after a short duration to avoid cluttering
+                delay(0.1, function()
+                    tracerLine:Destroy()
+                end)
+            end
+        end
+    end
+end)
+
+-- Function to aim at the nearest player's head
+local function aimAtNearestPlayer()
+    if not aimbotEnabled then return end
+    
+    local nearestPlayer = nil
+    local shortestDistance = math.huge
+    
+    for _, p in pairs(Players:GetPlayers()) do
+        if p ~= player and p.Character and p.Character:FindFirstChild("Head") then
+            local headPosition = p.Character.Head.Position
+            local distance = (headPosition - character.HumanoidRootPart.Position).Magnitude
+            
+            if distance < shortestDistance then
+                shortestDistance = distance
+                nearestPlayer = p
+            end
+        end
+    end
+    
+    if nearestPlayer then
+        local headCFrame = nearestPlayer.Character.Head.CFrame
+        character.HumanoidRootPart.CFrame = CFrame.new(headCFrame.Position) -- Snap to the head position
+    end
+end
+
+-- Aimbot logic that runs every frame when enabled
+RunService.RenderStepped:Connect(function()
+    aimAtNearestPlayer()
+end)
+
+-- Connect button click events for toggles
+espButton.MouseButton1Click:Connect(toggleESP)
+tracersButton.MouseButton1Click:Connect(toggleTracers)
+
+-- Connect the Aimbot button click event
+aimbotButton.MouseButton1Click:Connect(function()
+    aimbotEnabled = not aimbotEnabled
+end)
+
+-- Fly function
+local function toggleFly()
+    flying = not flying
+    if flying then
+        flyStatusLabel.Text = "Flying On" 
+        humanoid.PlatformStand = true 
+
+        -- Enable flying
+        bodyVelocity.Parent = character:WaitForChild("HumanoidRootPart")
+
+        -- Connect to RenderStepped for movement
+        RunService.RenderStepped:Connect(function()
+            if flying then
+                local cameraCFrame = workspace.CurrentCamera.CFrame
+                local moveDirection = Vector3.new(0, 0, 0)
+
+                -- Get input for directional movement
+                if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+                    moveDirection = moveDirection + cameraCFrame.LookVector
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+                    moveDirection = moveDirection - cameraCFrame.LookVector
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+                    moveDirection = moveDirection - cameraCFrame.RightVector
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+                    moveDirection = moveDirection + cameraCFrame.RightVector
+                end
+                
+                -- Control vertical movement
+                local verticalSpeed = 0
+                if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+                    verticalSpeed = 20 -- Ascend speed
+                elseif UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                    verticalSpeed = -20 -- Descend speed
+                end
+
+                -- Update BodyVelocity for horizontal and vertical movement using flySpeed
+                bodyVelocity.Velocity = Vector3.new(moveDirection.X * flySpeed, verticalSpeed, moveDirection.Z * flySpeed) 
+            end
+        end)
+    else
+        flyStatusLabel.Text = "Fly Off" 
+        humanoid.PlatformStand = false 
+        bodyVelocity:Destroy() 
+    end
+end
+
+-- Function for toggling NoClip
+local function toggleNoClip()
+    noClipping = not noClipping
+    if noClipping then
+        noClipStatusLabel.Text = "NoClip On"
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    else
+        noClipStatusLabel.Text = "NoClip Off"
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+    end
+end
+
+-- Set new fly speed when speedInput is changed
+speedInput.FocusLost:Connect(function()
+    local newSpeed = tonumber(speedInput.Text)
+    if newSpeed and newSpeed > 0 then
+        flySpeed = newSpeed
+    else
+        speedInput.Text = tostring(flySpeed) -- Reset to current speed if invalid input
+    end
+end)
+
+-- Connect button click events
+noClipButton.MouseButton1Click:Connect(toggleNoClip)
+minimizeButton.MouseButton1Click:Connect(function()
+    frame.Visible = false 
+    unminimizeButton.Visible = true 
+end)
+
+-- Unminimize Button Functionality
+unminimizeButton.MouseButton1Click:Connect(function()
+    frame.Visible = true 
+    unminimizeButton.Visible = false 
+end)
+
+-- Connect button click events for toggles
+flyButton.MouseButton1Click:Connect(toggleFly)
+
+-- Close Button Functionality
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy() 
+end)
+
+-- Draggable functionality for the GUI
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStartPos = UserInputService:GetMouse().Position
+        initialPos = frame.Position
+        unminimizeButton.Visible = false -- Hide unminimize button while moving
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local delta = UserInputService:GetMouse().Position - dragStartPos
+        frame.Position = initialPos + UDim2.new(0, delta.X, 0, delta.Y)
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = false
+        unminimizeButton.Visible = true -- Show unminimize button again after dragging ends
+    end
+end)
+-- Reset states when character respawns
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+    flying = false 
+    noClipping = false 
+    flyStatusLabel.Text = "Fly Off"
+    noClipStatusLabel.Text = "NoClip Off"
+    bodyVelocity:Destroy() 
+end)
