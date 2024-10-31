@@ -40,7 +40,7 @@ titleLabel.Parent = frame
 
 -- Create a TextLabel for instructions
 local instructionsLabel = Instance.new("TextLabel")
-instructionsLabel.Size = UDim2.new(0.5, 0, 1, 0)
+instructionsLabel.Size = UDim2.new(0.3, 0, 1, 0)
 instructionsLabel.Position = UDim2.new(1, 0, 0, 0) -- Below the title
 instructionsLabel.Text = "Controls:\nW: Move Forward\nS: Move Backward\nA: Move Left\nD: Move Right\nSpace: Ascend\nLeft Control: Descend\nF: Toggle Fly\nN: Toggle NoClip\nE: Toggle ESP"
 instructionsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
