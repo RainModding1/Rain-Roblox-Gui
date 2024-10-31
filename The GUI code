@@ -1,1 +1,470 @@
-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
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local flying = false
+local noClipping = false
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
+local flySpeed = 50 -- Default fly speed
+local walkSpeed = 16 -- Default walk speed
+local espEnabled = false -- Start ESP disabled
+local tracersEnabled = false -- Track if tracers are enabled
+local hotkeysEnabled = true -- Start with hotkeys enabled
+
+-- Create a ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.5, 0, 0.5, 0)
+frame.Position = UDim2.new(0.25, 0, 0.25, 0)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.Parent = screenGui
+
+-- Create a TextLabel for Title
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0.1, 0) -- Title occupies the top 10% of the frame
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.Text = "Rain Gui"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.BackgroundTransparency = 1 -- Transparent background
+titleLabel.TextScaled = true -- Scale text to fit
+titleLabel.TextSize = 48 -- Set larger text size for title
+titleLabel.TextStrokeTransparency = 0.5 -- Optional: Add stroke for better visibility
+titleLabel.Parent = frame
+
+-- Create a TextLabel for instructions
+local instructionsLabel = Instance.new("TextLabel")
+instructionsLabel.Size = UDim2.new(0.3, 0, 1, 0)
+instructionsLabel.Position = UDim2.new(1, 0, 0, 0) -- Below the title
+instructionsLabel.Text = "Controls:\nW: Move Forward\nS: Move Backward\nA: Move Left\nD: Move Right\nSpace: Ascend\nLeft Control: Descend\nF: Toggle Fly\nN: Toggle NoClip\nE: Toggle ESP"
+instructionsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+instructionsLabel.BackgroundTransparency = 0 -- Transparent background
+instructionsLabel.TextScaled = false -- Scale text to fit
+instructionsLabel.TextSize = 20 -- Set larger text size for instructions
+instructionsLabel.Parent = frame
+
+-- Create a TextLabel for fly status
+local flyStatusLabel = Instance.new("TextLabel")
+flyStatusLabel.Size = UDim2.new(1, 0, 0.1, 0)
+flyStatusLabel.Position = UDim2.new(0, 0, 0.12, 0) -- Adjusted position
+flyStatusLabel.Text = "Fly Off"
+flyStatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyStatusLabel.BackgroundTransparency = 1
+flyStatusLabel.TextScaled = true
+flyStatusLabel.TextSize = 36 -- Larger text size for fly status
+flyStatusLabel.Parent = frame
+
+-- Create a TextLabel for NoClip status
+local noClipStatusLabel = Instance.new("TextLabel")
+noClipStatusLabel.Size = UDim2.new(1, 0, 0.1, 0)
+noClipStatusLabel.Position = UDim2.new(0, 0, 0.21, 0)
+noClipStatusLabel.Text = "NoClip Off"
+noClipStatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+noClipStatusLabel.BackgroundTransparency = 1
+noClipStatusLabel.TextScaled = true
+noClipStatusLabel.TextSize = 36 -- Larger text size for NoClip status
+noClipStatusLabel.Parent = frame
+
+-- Create a TextLabel for Fly Speed
+local flySpeedLabel = Instance.new("TextLabel")
+flySpeedLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
+flySpeedLabel.Position = UDim2.new(-0.3, 0, 0.35, 0)
+flySpeedLabel.Text = "Fly Speed"
+flySpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+flySpeedLabel.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+flySpeedLabel.BackgroundTransparency = 0
+flySpeedLabel.TextScaled = false
+flySpeedLabel.TextSize = 36 -- Larger text size for Fly Speed
+flySpeedLabel.Parent = frame
+
+-- Create a TextBox for fly speed input
+local speedInput = Instance.new("TextBox")
+speedInput.Size = UDim2.new(0.3, 0, 0.1, 0)
+speedInput.Position = UDim2.new(-0.3, 0, 0.45, 0)
+speedInput.Text = tostring(flySpeed) -- Set default speed value
+speedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedInput.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+speedInput.PlaceholderText = "Enter Fly Speed"
+speedInput.TextScaled = false -- Scale text to fit
+speedInput.TextSize = 36 -- Larger text size for input box
+speedInput.Parent = frame
+
+-- Create a TextLabel for Walk Speed
+local walkSpeedLabel = Instance.new("TextLabel")
+walkSpeedLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
+walkSpeedLabel.Position = UDim2.new(-0.3, 0, 0.55, 0)
+walkSpeedLabel.Text = "Walk Speed"
+walkSpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+walkSpeedLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+walkSpeedLabel.BackgroundTransparency = 0
+walkSpeedLabel.TextScaled = false
+walkSpeedLabel.TextSize = 36 -- Larger text size for Walk Speed
+walkSpeedLabel.Parent = frame
+
+-- Create a TextBox for walk speed input
+local walkSpeedInput = Instance.new("TextBox")
+walkSpeedInput.Size = UDim2.new(0.3, 0, 0.1, 0)
+walkSpeedInput.Position = UDim2.new(-0.3, 0, 0.65, 0)
+walkSpeedInput.Text = tostring(walkSpeed) -- Set default speed value
+walkSpeedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+walkSpeedInput.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+walkSpeedInput.PlaceholderText = "Enter Walk Speed"
+walkSpeedInput.TextScaled = false -- Scale text to fit
+walkSpeedInput.TextSize = 36 -- Larger text size for input box
+walkSpeedInput.Parent = frame
+
+-- Create a TextButton for Toggle Fly
+local flyButton = Instance.new("TextButton")
+flyButton.Size = UDim2.new(1, 0, 0.1, 0)
+flyButton.Position = UDim2.new(0, 0, 0.75, 0)
+flyButton.Text = "Toggle Fly"
+flyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+flyButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+flyButton.TextScaled = true -- Scale text to fit
+flyButton.TextSize = 40 -- Larger text size for button
+flyButton.Parent = frame
+
+-- Create a TextButton for NoClip
+local noClipButton = Instance.new("TextButton")
+noClipButton.Size = UDim2.new(1, 0, 0.1, 0)
+noClipButton.Position = UDim2.new(0, 0, 0.85, 0)
+noClipButton.Text = "Toggle NoClip"
+noClipButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+noClipButton.BackgroundColor3 = Color3.fromRGB(150, 0, 150)
+noClipButton.TextScaled = true -- Scale text to fit
+noClipButton.TextSize = 40 -- Larger text size for button
+noClipButton.Parent = frame
+
+-- Create a TextButton for Toggle ESP
+local espButton = Instance.new("TextButton")
+espButton.Size = UDim2.new(1, 0, 0.1, 0)
+espButton.Position = UDim2.new(0, 0, 0.95, 0)
+espButton.Text = "Toggle ESP"
+espButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+espButton.BackgroundColor3 = Color3.fromRGB(0, 100, 200)
+espButton.TextScaled = true -- Scale text to fit
+espButton.TextSize = 40 -- Larger text size for button
+espButton.Parent = frame
+
+-- Create a TextButton for Toggle Hotkeys
+local hotkeyToggleButton = Instance.new("TextButton")
+hotkeyToggleButton.Size = UDim2.new(1, 0, 0.1, 0)
+hotkeyToggleButton.Position = UDim2.new(0, 0, 1.05, 0)
+hotkeyToggleButton.Text = "Hotkeys Enabled"
+hotkeyToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+hotkeyToggleButton.BackgroundColor3 = Color3.fromRGB(200, 100, 0)
+hotkeyToggleButton.TextScaled = true -- Scale text to fit
+hotkeyToggleButton.TextSize = 40 -- Larger text size for button
+hotkeyToggleButton.Parent = frame
+
+-- Create a TextButton for Toggle Tracers
+local tracersButton = Instance.new("TextButton")
+tracersButton.Size = UDim2.new(1, 0, 0.1, 0)
+tracersButton.Position = UDim2.new(0, 0, 1.15, 0) -- Position below other buttons
+tracersButton.Text = "Toggle Tracers"
+tracersButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+tracersButton.BackgroundColor3 = Color3.fromRGB(200, 100, 0)
+tracersButton.TextScaled = true -- Scale text to fit
+tracersButton.TextSize = 40 -- Larger text size for button
+tracersButton.Parent = frame
+
+-- Create a TextButton for Minimize
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+minimizeButton.Position = UDim2.new(0.8, 0, 0, 0)
+minimizeButton.Text = "Min"
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(150, 150, 0)
+minimizeButton.Parent = frame
+
+-- Create a TextButton for Close
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+closeButton.Position = UDim2.new(0.9, 0, 0, 0)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+closeButton.Parent = frame
+
+-- Create a smaller TextButton for Unminimize Notification
+local unminimizeButton = Instance.new("TextButton")
+unminimizeButton.Size = UDim2.new(0.05, 0, 0.05, 0) -- Smaller size
+unminimizeButton.Position = UDim2.new(0.95, 0, 0.05, 0) -- Adjusted position to top right corner
+unminimizeButton.Text = "U"
+unminimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+unminimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+unminimizeButton.Visible = false -- Initially hidden
+unminimizeButton.Parent = screenGui
+
+-- ESP Functionality
+local function createESP(player)
+    local esp = Instance.new("Highlight") -- Create a highlight to serve as ESP
+    esp.Parent = player.Character
+    esp.FillColor = Color3.new(1, 1, 1) -- Change this color to white or any color of your choice
+    esp.OutlineColor = Color3.new(1, 1, 1) -- Outline color
+    esp.OutlineTransparency = 0.5 -- Slightly transparent outline
+    esp.FillTransparency = 0.5 -- Slightly transparent fill
+    return esp
+end
+
+-- Update ESP for existing players
+local function updateESP()
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Character and espEnabled then
+            createESP(p)
+        end
+    end
+end
+
+-- Function to toggle ESP visibility
+local function toggleESP()
+    espEnabled = not espEnabled
+    if espEnabled then
+        updateESP() -- Enable ESP for players when toggled on
+        espButton.Text = "Disable ESP" -- Update button text
+    else
+        -- Disable ESP highlights for all players
+        for _, p in pairs(Players:GetPlayers()) do
+            if p.Character then
+                local espHighlight = p.Character:FindFirstChildOfClass("Highlight")
+                if espHighlight then
+                    espHighlight:Destroy() -- Remove the highlight when turning off ESP
+                end
+            end
+        end
+        espButton.Text = "Enable ESP" -- Update button text
+    end
+end
+
+-- Create ESP for players already in the game when script runs for the first time
+updateESP()
+
+-- Function to toggle Hotkeys
+local function toggleHotkeys()
+    hotkeysEnabled = not hotkeysEnabled
+    if hotkeysEnabled then
+        hotkeyToggleButton.Text = "Hotkeys Enabled"
+    else
+        hotkeyToggleButton.Text = "Hotkeys Disabled"
+    end
+end
+
+-- Create ESP for new players when they join
+Players.PlayerAdded:Connect(function(newPlayer)
+    newPlayer.CharacterAdded:Connect(function()
+        if espEnabled then
+            createESP(newPlayer) -- Only create ESP if enabled
+        end
+    end)
+end)
+
+-- Function to toggle tracers visibility
+local function toggleTracers()
+    tracersEnabled = not tracersEnabled
+end
+
+-- Function to draw tracers for players
+RunService.RenderStepped:Connect(function()
+    if tracersEnabled then
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                local rootPartPosition = p.Character.HumanoidRootPart.Position
+                local playerPosition = character.HumanoidRootPart.Position
+
+                -- Create a tracer line from the local player to the target player
+                local tracerLine = Instance.new("LineHandleAdornment")
+                tracerLine.Color3 = Color3.fromRGB(255, 255, 255) -- Set tracer color to white
+                tracerLine.Length = (rootPartPosition - playerPosition).Magnitude
+                tracerLine.Adornee = workspace.Terrain -- Line will be drawn in the workspace
+                tracerLine.CFrame = CFrame.new(playerPosition:Lerp(rootPartPosition, 0.5), rootPartPosition) -- Center of line at midpoint
+                tracerLine.AlwaysOnTop = true
+                tracerLine.ZIndex = 10 -- Ensure it appears on top
+                tracerLine.Parent = workspace
+
+                -- Remove the tracer after a short duration to avoid cluttering
+                delay(0.1, function()
+                    tracerLine:Destroy()
+                end)
+            end
+        end
+    end
+end)
+
+-- Function to set default walk speed when game starts.
+humanoid.WalkSpeed = walkSpeed
+
+-- Connect button click events for toggles
+espButton.MouseButton1Click:Connect(toggleESP)
+tracersButton.MouseButton1Click:Connect(toggleTracers)
+
+-- Connect the Hotkey Toggle Button click event
+hotkeyToggleButton.MouseButton1Click:Connect(toggleHotkeys)
+
+-- Fly function
+local function toggleFly()
+    flying = not flying
+    if flying then
+        flyStatusLabel.Text = "Flying On"
+        humanoid.PlatformStand = true
+
+        -- Enable flying
+        bodyVelocity.Parent = character:WaitForChild("HumanoidRootPart")
+
+        -- Connect to RenderStepped for movement
+        RunService.RenderStepped:Connect(function()
+            if flying then
+                local cameraCFrame = workspace.CurrentCamera.CFrame
+                local moveDirection = Vector3.new(0, 0, 0)
+
+                -- Get input for directional movement
+                if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+                    moveDirection = moveDirection + cameraCFrame.LookVector
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+                    moveDirection = moveDirection - cameraCFrame.LookVector
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+                    moveDirection = moveDirection - cameraCFrame.RightVector
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+                    moveDirection = moveDirection + cameraCFrame.RightVector
+                end
+                
+                -- Control vertical movement
+                local verticalSpeed = 0
+                if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+                    verticalSpeed = flySpeed -- Ascend speed based on flySpeed input
+                elseif UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                    verticalSpeed = -flySpeed -- Descend speed based on flySpeed input
+                end
+
+                -- Update BodyVelocity for horizontal and vertical movement using flySpeed input.
+                bodyVelocity.Velocity = Vector3.new(moveDirection.X * flySpeed, verticalSpeed, moveDirection.Z * flySpeed)
+            end
+        end)
+    else
+        flyStatusLabel.Text = "Fly Off"
+        humanoid.PlatformStand = false
+        bodyVelocity:Destroy()
+    end
+end
+
+-- Function for toggling NoClip.
+local function toggleNoClip()
+    noClipping = not noClipping
+    if noClipping then
+        noClipStatusLabel.Text = "NoClip On"
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    else
+        noClipStatusLabel.Text = "NoClip Off"
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+    end
+end
+
+-- Set new fly speed when speedInput is changed.
+speedInput.FocusLost:Connect(function()
+    local newFlySpeed = tonumber(speedInput.Text)
+    if newFlySpeed and newFlySpeed > 0 then
+        flySpeed = newFlySpeed
+    else
+        speedInput.Text = tostring(flySpeed) -- Reset to current speed if invalid input.
+    end
+end)
+
+-- Set new walk speed when walkSpeedInput is changed and update the humanoid's WalkSpeed property.
+walkSpeedInput.FocusLost:Connect(function()
+    local newWalkSpeed = tonumber(walkSpeedInput.Text)
+    if newWalkSpeed and newWalkSpeed > 0 then 
+        walkSpeed = newWalkSpeed 
+        humanoid.WalkSpeed = walkSpeed -- Update the humanoid's WalkSpeed.
+    else 
+        walkSpeedInput.Text = tostring(walkSpeed) -- Reset to current speed if invalid input.
+    end 
+end)
+
+-- Connect button click events for toggling NoClip and Fly.
+noClipButton.MouseButton1Click:Connect(toggleNoClip)
+minimizeButton.MouseButton1Click:Connect(function()
+    frame.Visible = false
+    unminimizeButton.Visible = true
+end)
+
+-- Unminimize Button Functionality.
+unminimizeButton.MouseButton1Click:Connect(function()
+    frame.Visible = true
+    unminimizeButton.Visible = false
+end)
+
+-- Connect button click events for toggles.
+flyButton.MouseButton1Click:Connect(toggleFly)
+
+-- Close Button Functionality but keep GUI on reset.
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- Draggable functionality for the GUI.
+local dragging = false 
+local dragStartPos 
+local initialPos 
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then 
+        dragging = true 
+        dragStartPos = UserInputService:GetMouse().Position 
+        initialPos = frame.Position 
+        unminimizeButton.Visible = false -- Hide unminimize button while moving 
+    end 
+end)
+
+UserInputService.InputChanged:Connect(function(input) 
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then 
+        local delta = UserInputService:GetMouse().Position - dragStartPos 
+        frame.Position = initialPos + UDim2.new(0, delta.X, 0, delta.Y) 
+    end 
+end)
+
+UserInputService.InputEnded:Connect(function(input) 
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then 
+        dragging = false 
+        unminimizeButton.Visible = true -- Show unminimize button again after dragging ends 
+    end 
+end)
+
+-- Reset states when character respawns but keep the GUI active.
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter 
+    humanoid = character:WaitForChild("Humanoid") 
+    flying = false 
+    noClipping = false 
+    flyStatusLabel.Text = "Fly Off" 
+    noClipStatusLabel.Text = "NoClip Off" 
+    bodyVelocity:Destroy() 
+end)
+
+-- Hotkeys for toggling Fly and NoClip with 'F' and 'N'
+UserInputService.InputBegan:Connect(function(input, processed)
+    if processed or not hotkeysEnabled then return end -- Ignore if another input is being processed or hotkeys are disabled.
+
+    if input.KeyCode == Enum.KeyCode.F then
+        toggleFly()
+    elseif input.KeyCode == Enum.KeyCode.N then
+        toggleNoClip()
+    elseif input.KeyCode == Enum.KeyCode.E then
+        toggleESP()
+    end
+end)
