@@ -10,9 +10,10 @@ local noClipping = false
 local bodyVelocity = Instance.new("BodyVelocity")
 bodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
 local flySpeed = 50 -- Default fly speed
-local espEnabled = true -- Track if ESP is enabled
+local walkSpeed = 16 -- Default walk speed
+local espEnabled = false -- Start ESP disabled
 local tracersEnabled = false -- Track if tracers are enabled
-local aimbotEnabled = false -- Track if aimbot is enabled
+local hotkeysEnabled = true -- Start with hotkeys enabled
 
 -- Create a ScreenGui
 local screenGui = Instance.new("ScreenGui")
@@ -33,98 +34,150 @@ titleLabel.Text = "Rain Gui"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.BackgroundTransparency = 1 -- Transparent background
 titleLabel.TextScaled = true -- Scale text to fit
-titleLabel.TextSize = 36 -- Set a large text size
+titleLabel.TextSize = 48 -- Set larger text size for title
 titleLabel.TextStrokeTransparency = 0.5 -- Optional: Add stroke for better visibility
 titleLabel.Parent = frame
 
 -- Create a TextLabel for instructions
 local instructionsLabel = Instance.new("TextLabel")
-instructionsLabel.Size = UDim2.new(1, 0, 0.2, 0)
-instructionsLabel.Position = UDim2.new(0, 0, 0.1, 0) -- Below the title
-instructionsLabel.Text = "Controls:\nW: Move Forward\nS: Move Backward\nA: Move Left\nD: Move Right\nSpace: Ascend\nLeft Control: Descend"
+instructionsLabel.Size = UDim2.new(0.5, 0, 1, 0)
+instructionsLabel.Position = UDim2.new(1, 0, 0, 0) -- Below the title
+instructionsLabel.Text = "Controls:\nW: Move Forward\nS: Move Backward\nA: Move Left\nD: Move Right\nSpace: Ascend\nLeft Control: Descend\nF: Toggle Fly\nN: Toggle NoClip\nE: Toggle ESP"
 instructionsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-instructionsLabel.BackgroundTransparency = 1 -- Transparent background
-instructionsLabel.TextScaled = true -- Scale text to fit
+instructionsLabel.BackgroundTransparency = 0 -- Transparent background
+instructionsLabel.TextScaled = false -- Scale text to fit
+instructionsLabel.TextSize = 20 -- Set larger text size for instructions
 instructionsLabel.Parent = frame
 
 -- Create a TextLabel for fly status
 local flyStatusLabel = Instance.new("TextLabel")
 flyStatusLabel.Size = UDim2.new(1, 0, 0.1, 0)
-flyStatusLabel.Position = UDim2.new(0, 0, 0.3, 0) -- Adjusted position
+flyStatusLabel.Position = UDim2.new(0, 0, 0.12, 0) -- Adjusted position
 flyStatusLabel.Text = "Fly Off"
 flyStatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 flyStatusLabel.BackgroundTransparency = 1
+flyStatusLabel.TextScaled = true
+flyStatusLabel.TextSize = 36 -- Larger text size for fly status
 flyStatusLabel.Parent = frame
 
 -- Create a TextLabel for NoClip status
 local noClipStatusLabel = Instance.new("TextLabel")
 noClipStatusLabel.Size = UDim2.new(1, 0, 0.1, 0)
-noClipStatusLabel.Position = UDim2.new(0, 0, 0.4, 0)
+noClipStatusLabel.Position = UDim2.new(0, 0, 0.21, 0)
 noClipStatusLabel.Text = "NoClip Off"
 noClipStatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 noClipStatusLabel.BackgroundTransparency = 1
+noClipStatusLabel.TextScaled = true
+noClipStatusLabel.TextSize = 36 -- Larger text size for NoClip status
 noClipStatusLabel.Parent = frame
+
+-- Create a TextLabel for Fly Speed
+local flySpeedLabel = Instance.new("TextLabel")
+flySpeedLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
+flySpeedLabel.Position = UDim2.new(-0.3, 0, 0.35, 0)
+flySpeedLabel.Text = "Fly Speed"
+flySpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+flySpeedLabel.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+flySpeedLabel.BackgroundTransparency = 0
+flySpeedLabel.TextScaled = false
+flySpeedLabel.TextSize = 36 -- Larger text size for Fly Speed
+flySpeedLabel.Parent = frame
 
 -- Create a TextBox for fly speed input
 local speedInput = Instance.new("TextBox")
-speedInput.Size = UDim2.new(1, 0, 0.1, 0)
-speedInput.Position = UDim2.new(0, 0, 0.55, 0)
+speedInput.Size = UDim2.new(0.3, 0, 0.1, 0)
+speedInput.Position = UDim2.new(-0.3, 0, 0.45, 0)
 speedInput.Text = tostring(flySpeed) -- Set default speed value
 speedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-speedInput.BackgroundColor3 = Color3.fromRGB(100, 100, 150)
+speedInput.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
 speedInput.PlaceholderText = "Enter Fly Speed"
-speedInput.TextScaled = true -- Scale text to fit
+speedInput.TextScaled = false -- Scale text to fit
+speedInput.TextSize = 36 -- Larger text size for input box
 speedInput.Parent = frame
+
+-- Create a TextLabel for Walk Speed
+local walkSpeedLabel = Instance.new("TextLabel")
+walkSpeedLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
+walkSpeedLabel.Position = UDim2.new(-0.3, 0, 0.55, 0)
+walkSpeedLabel.Text = "Walk Speed"
+walkSpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+walkSpeedLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+walkSpeedLabel.BackgroundTransparency = 0
+walkSpeedLabel.TextScaled = false
+walkSpeedLabel.TextSize = 36 -- Larger text size for Walk Speed
+walkSpeedLabel.Parent = frame
+
+-- Create a TextBox for walk speed input
+local walkSpeedInput = Instance.new("TextBox")
+walkSpeedInput.Size = UDim2.new(0.3, 0, 0.1, 0)
+walkSpeedInput.Position = UDim2.new(-0.3, 0, 0.65, 0)
+walkSpeedInput.Text = tostring(walkSpeed) -- Set default speed value
+walkSpeedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+walkSpeedInput.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+walkSpeedInput.PlaceholderText = "Enter Walk Speed"
+walkSpeedInput.TextScaled = false -- Scale text to fit
+walkSpeedInput.TextSize = 36 -- Larger text size for input box
+walkSpeedInput.Parent = frame
 
 -- Create a TextButton for Toggle Fly
 local flyButton = Instance.new("TextButton")
 flyButton.Size = UDim2.new(1, 0, 0.1, 0)
-flyButton.Position = UDim2.new(0, 0, 0.65, 0)
+flyButton.Position = UDim2.new(0, 0, 0.75, 0)
 flyButton.Text = "Toggle Fly"
 flyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 flyButton.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+flyButton.TextScaled = true -- Scale text to fit
+flyButton.TextSize = 40 -- Larger text size for button
 flyButton.Parent = frame
 
 -- Create a TextButton for NoClip
 local noClipButton = Instance.new("TextButton")
 noClipButton.Size = UDim2.new(1, 0, 0.1, 0)
-noClipButton.Position = UDim2.new(0, 0, 0.75, 0)
+noClipButton.Position = UDim2.new(0, 0, 0.85, 0)
 noClipButton.Text = "Toggle NoClip"
 noClipButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 noClipButton.BackgroundColor3 = Color3.fromRGB(150, 0, 150)
+noClipButton.TextScaled = true -- Scale text to fit
+noClipButton.TextSize = 40 -- Larger text size for button
 noClipButton.Parent = frame
 
 -- Create a TextButton for Toggle ESP
 local espButton = Instance.new("TextButton")
 espButton.Size = UDim2.new(1, 0, 0.1, 0)
-espButton.Position = UDim2.new(0, 0, 0.85, 0)
+espButton.Position = UDim2.new(0, 0, 0.95, 0)
 espButton.Text = "Toggle ESP"
 espButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 espButton.BackgroundColor3 = Color3.fromRGB(0, 100, 200)
+espButton.TextScaled = true -- Scale text to fit
+espButton.TextSize = 40 -- Larger text size for button
 espButton.Parent = frame
+
+-- Create a TextButton for Toggle Hotkeys
+local hotkeyToggleButton = Instance.new("TextButton")
+hotkeyToggleButton.Size = UDim2.new(1, 0, 0.1, 0)
+hotkeyToggleButton.Position = UDim2.new(0, 0, 1.05, 0)
+hotkeyToggleButton.Text = "Hotkeys Enabled"
+hotkeyToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+hotkeyToggleButton.BackgroundColor3 = Color3.fromRGB(200, 100, 0)
+hotkeyToggleButton.TextScaled = true -- Scale text to fit
+hotkeyToggleButton.TextSize = 40 -- Larger text size for button
+hotkeyToggleButton.Parent = frame
 
 -- Create a TextButton for Toggle Tracers
 local tracersButton = Instance.new("TextButton")
 tracersButton.Size = UDim2.new(1, 0, 0.1, 0)
-tracersButton.Position = UDim2.new(0, 0, 0.95, 0)
+tracersButton.Position = UDim2.new(0, 0, 1.15, 0) -- Position below other buttons
 tracersButton.Text = "Toggle Tracers"
 tracersButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 tracersButton.BackgroundColor3 = Color3.fromRGB(200, 100, 0)
+tracersButton.TextScaled = true -- Scale text to fit
+tracersButton.TextSize = 40 -- Larger text size for button
 tracersButton.Parent = frame
-
--- Create a TextButton for Toggle Aimbot
-local aimbotButton = Instance.new("TextButton")
-aimbotButton.Size = UDim2.new(1, 0, 0.1, 0)
-aimbotButton.Position = UDim2.new(0, 0, 1.05, 0) -- Position below other buttons
-aimbotButton.Text = "Toggle Aimbot"
-aimbotButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-aimbotButton.BackgroundColor3 = Color3.fromRGB(150, 100, 200)
-aimbotButton.Parent = frame
 
 -- Create a TextButton for Minimize
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
-minimizeButton.Position = UDim2.new(0.85, 0, 0, 0)
+minimizeButton.Position = UDim2.new(0.8, 0, 0, 0)
 minimizeButton.Text = "Min"
 minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 minimizeButton.BackgroundColor3 = Color3.fromRGB(150, 150, 0)
@@ -133,7 +186,7 @@ minimizeButton.Parent = frame
 -- Create a TextButton for Close
 local closeButton = Instance.new("TextButton")
 closeButton.Size = UDim2.new(0.1, 0, 0.1, 0)
-closeButton.Position = UDim2.new(0.95, 0, 0, 0)
+closeButton.Position = UDim2.new(0.9, 0, 0, 0)
 closeButton.Text = "X"
 closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 closeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
@@ -160,32 +213,56 @@ local function createESP(player)
     return esp
 end
 
--- Create ESP for all players in the game
-for _, p in pairs(Players:GetPlayers()) do
-    if p ~= player then
-        createESP(p)
+-- Update ESP for existing players
+local function updateESP()
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Character and espEnabled then
+            createESP(p)
+        end
     end
 end
-
--- Function to update ESP when a new player joins
-Players.PlayerAdded:Connect(function(newPlayer)
-    newPlayer.CharacterAdded:Connect(function()
-        createESP(newPlayer)
-    end)
-end)
 
 -- Function to toggle ESP visibility
 local function toggleESP()
     espEnabled = not espEnabled
-    for _, p in pairs(Players:GetPlayers()) do
-        if p.Character then
-            local espHighlight = p.Character:FindFirstChildOfClass("Highlight")
-            if espHighlight then
-                espHighlight.Enabled = espEnabled -- Enable or disable the highlight based on toggle
+    if espEnabled then
+        updateESP() -- Enable ESP for players when toggled on
+        espButton.Text = "Disable ESP" -- Update button text
+    else
+        -- Disable ESP highlights for all players
+        for _, p in pairs(Players:GetPlayers()) do
+            if p.Character then
+                local espHighlight = p.Character:FindFirstChildOfClass("Highlight")
+                if espHighlight then
+                    espHighlight:Destroy() -- Remove the highlight when turning off ESP
+                end
             end
         end
+        espButton.Text = "Enable ESP" -- Update button text
     end
 end
+
+-- Create ESP for players already in the game when script runs for the first time
+updateESP()
+
+-- Function to toggle Hotkeys
+local function toggleHotkeys()
+    hotkeysEnabled = not hotkeysEnabled
+    if hotkeysEnabled then
+        hotkeyToggleButton.Text = "Hotkeys Enabled"
+    else
+        hotkeyToggleButton.Text = "Hotkeys Disabled"
+    end
+end
+
+-- Create ESP for new players when they join
+Players.PlayerAdded:Connect(function(newPlayer)
+    newPlayer.CharacterAdded:Connect(function()
+        if espEnabled then
+            createESP(newPlayer) -- Only create ESP if enabled
+        end
+    end)
+end)
 
 -- Function to toggle tracers visibility
 local function toggleTracers()
@@ -200,13 +277,14 @@ RunService.RenderStepped:Connect(function()
                 local rootPartPosition = p.Character.HumanoidRootPart.Position
                 local playerPosition = character.HumanoidRootPart.Position
 
+                -- Create a tracer line from the local player to the target player
                 local tracerLine = Instance.new("LineHandleAdornment")
                 tracerLine.Color3 = Color3.fromRGB(255, 255, 255) -- Set tracer color to white
                 tracerLine.Length = (rootPartPosition - playerPosition).Magnitude
                 tracerLine.Adornee = workspace.Terrain -- Line will be drawn in the workspace
                 tracerLine.CFrame = CFrame.new(playerPosition:Lerp(rootPartPosition, 0.5), rootPartPosition) -- Center of line at midpoint
                 tracerLine.AlwaysOnTop = true
-                tracerLine.ZIndex = 10 -- Make sure it appears on top
+                tracerLine.ZIndex = 10 -- Ensure it appears on top
                 tracerLine.Parent = workspace
 
                 -- Remove the tracer after a short duration to avoid cluttering
@@ -218,51 +296,22 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- Function to aim at the nearest player's head
-local function aimAtNearestPlayer()
-    if not aimbotEnabled then return end
-    
-    local nearestPlayer = nil
-    local shortestDistance = math.huge
-    
-    for _, p in pairs(Players:GetPlayers()) do
-        if p ~= player and p.Character and p.Character:FindFirstChild("Head") then
-            local headPosition = p.Character.Head.Position
-            local distance = (headPosition - character.HumanoidRootPart.Position).Magnitude
-            
-            if distance < shortestDistance then
-                shortestDistance = distance
-                nearestPlayer = p
-            end
-        end
-    end
-    
-    if nearestPlayer then
-        local headCFrame = nearestPlayer.Character.Head.CFrame
-        character.HumanoidRootPart.CFrame = CFrame.new(headCFrame.Position) -- Snap to the head position
-    end
-end
-
--- Aimbot logic that runs every frame when enabled
-RunService.RenderStepped:Connect(function()
-    aimAtNearestPlayer()
-end)
+-- Function to set default walk speed when game starts.
+humanoid.WalkSpeed = walkSpeed
 
 -- Connect button click events for toggles
 espButton.MouseButton1Click:Connect(toggleESP)
 tracersButton.MouseButton1Click:Connect(toggleTracers)
 
--- Connect the Aimbot button click event
-aimbotButton.MouseButton1Click:Connect(function()
-    aimbotEnabled = not aimbotEnabled
-end)
+-- Connect the Hotkey Toggle Button click event
+hotkeyToggleButton.MouseButton1Click:Connect(toggleHotkeys)
 
 -- Fly function
 local function toggleFly()
     flying = not flying
     if flying then
-        flyStatusLabel.Text = "Flying On" 
-        humanoid.PlatformStand = true 
+        flyStatusLabel.Text = "Flying On"
+        humanoid.PlatformStand = true
 
         -- Enable flying
         bodyVelocity.Parent = character:WaitForChild("HumanoidRootPart")
@@ -290,23 +339,23 @@ local function toggleFly()
                 -- Control vertical movement
                 local verticalSpeed = 0
                 if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
-                    verticalSpeed = 20 -- Ascend speed
+                    verticalSpeed = flySpeed -- Ascend speed based on flySpeed input
                 elseif UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
-                    verticalSpeed = -20 -- Descend speed
+                    verticalSpeed = -flySpeed -- Descend speed based on flySpeed input
                 end
 
-                -- Update BodyVelocity for horizontal and vertical movement using flySpeed
-                bodyVelocity.Velocity = Vector3.new(moveDirection.X * flySpeed, verticalSpeed, moveDirection.Z * flySpeed) 
+                -- Update BodyVelocity for horizontal and vertical movement using flySpeed input.
+                bodyVelocity.Velocity = Vector3.new(moveDirection.X * flySpeed, verticalSpeed, moveDirection.Z * flySpeed)
             end
         end)
     else
-        flyStatusLabel.Text = "Fly Off" 
-        humanoid.PlatformStand = false 
-        bodyVelocity:Destroy() 
+        flyStatusLabel.Text = "Fly Off"
+        humanoid.PlatformStand = false
+        bodyVelocity:Destroy()
     end
 end
 
--- Function for toggling NoClip
+-- Function for toggling NoClip.
 local function toggleNoClip()
     noClipping = not noClipping
     if noClipping then
@@ -326,67 +375,96 @@ local function toggleNoClip()
     end
 end
 
--- Set new fly speed when speedInput is changed
+-- Set new fly speed when speedInput is changed.
 speedInput.FocusLost:Connect(function()
-    local newSpeed = tonumber(speedInput.Text)
-    if newSpeed and newSpeed > 0 then
-        flySpeed = newSpeed
+    local newFlySpeed = tonumber(speedInput.Text)
+    if newFlySpeed and newFlySpeed > 0 then
+        flySpeed = newFlySpeed
     else
-        speedInput.Text = tostring(flySpeed) -- Reset to current speed if invalid input
+        speedInput.Text = tostring(flySpeed) -- Reset to current speed if invalid input.
     end
 end)
 
--- Connect button click events
+-- Set new walk speed when walkSpeedInput is changed and update the humanoid's WalkSpeed property.
+walkSpeedInput.FocusLost:Connect(function()
+    local newWalkSpeed = tonumber(walkSpeedInput.Text)
+    if newWalkSpeed and newWalkSpeed > 0 then 
+        walkSpeed = newWalkSpeed 
+        humanoid.WalkSpeed = walkSpeed -- Update the humanoid's WalkSpeed.
+    else 
+        walkSpeedInput.Text = tostring(walkSpeed) -- Reset to current speed if invalid input.
+    end 
+end)
+
+-- Connect button click events for toggling NoClip and Fly.
 noClipButton.MouseButton1Click:Connect(toggleNoClip)
 minimizeButton.MouseButton1Click:Connect(function()
-    frame.Visible = false 
-    unminimizeButton.Visible = true 
+    frame.Visible = false
+    unminimizeButton.Visible = true
 end)
 
--- Unminimize Button Functionality
+-- Unminimize Button Functionality.
 unminimizeButton.MouseButton1Click:Connect(function()
-    frame.Visible = true 
-    unminimizeButton.Visible = false 
+    frame.Visible = true
+    unminimizeButton.Visible = false
 end)
 
--- Connect button click events for toggles
+-- Connect button click events for toggles.
 flyButton.MouseButton1Click:Connect(toggleFly)
 
--- Close Button Functionality
+-- Close Button Functionality but keep GUI on reset.
 closeButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy() 
+    screenGui:Destroy()
 end)
 
--- Draggable functionality for the GUI
+-- Draggable functionality for the GUI.
+local dragging = false 
+local dragStartPos 
+local initialPos 
+
 frame.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStartPos = UserInputService:GetMouse().Position
-        initialPos = frame.Position
-        unminimizeButton.Visible = false -- Hide unminimize button while moving
-    end
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then 
+        dragging = true 
+        dragStartPos = UserInputService:GetMouse().Position 
+        initialPos = frame.Position 
+        unminimizeButton.Visible = false -- Hide unminimize button while moving 
+    end 
 end)
 
-UserInputService.InputChanged:Connect(function(input)
-    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local delta = UserInputService:GetMouse().Position - dragStartPos
-        frame.Position = initialPos + UDim2.new(0, delta.X, 0, delta.Y)
-    end
+UserInputService.InputChanged:Connect(function(input) 
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then 
+        local delta = UserInputService:GetMouse().Position - dragStartPos 
+        frame.Position = initialPos + UDim2.new(0, delta.X, 0, delta.Y) 
+    end 
 end)
 
-UserInputService.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = false
-        unminimizeButton.Visible = true -- Show unminimize button again after dragging ends
-    end
+UserInputService.InputEnded:Connect(function(input) 
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then 
+        dragging = false 
+        unminimizeButton.Visible = true -- Show unminimize button again after dragging ends 
+    end 
 end)
--- Reset states when character respawns
+
+-- Reset states when character respawns but keep the GUI active.
 player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    humanoid = character:WaitForChild("Humanoid")
+    character = newCharacter 
+    humanoid = character:WaitForChild("Humanoid") 
     flying = false 
     noClipping = false 
-    flyStatusLabel.Text = "Fly Off"
-    noClipStatusLabel.Text = "NoClip Off"
+    flyStatusLabel.Text = "Fly Off" 
+    noClipStatusLabel.Text = "NoClip Off" 
     bodyVelocity:Destroy() 
+end)
+
+-- Hotkeys for toggling Fly and NoClip with 'F' and 'N'
+UserInputService.InputBegan:Connect(function(input, processed)
+    if processed or not hotkeysEnabled then return end -- Ignore if another input is being processed or hotkeys are disabled.
+
+    if input.KeyCode == Enum.KeyCode.F then
+        toggleFly()
+    elseif input.KeyCode == Enum.KeyCode.N then
+        toggleNoClip()
+    elseif input.KeyCode == Enum.KeyCode.E then
+        toggleESP()
+    end
 end)
